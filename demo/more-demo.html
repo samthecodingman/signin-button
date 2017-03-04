@@ -1,0 +1,122 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2017 Samuel Jones http://samthecodingman.github.io/MIT_LICENSE.txt
+-->
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+	<title>signin-button-more-providers demo</title>
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+	<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+	<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+	<link rel="import" href="../../paper-styles/color.html">
+	<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+	<link rel="import" href="../../paper-input/paper-input.html">
+	<link rel="import" href="../signin-button.html">
+	<link rel="import" href="../signin-button-more-providers.html">
+	<link rel="import" href="../signin-button-group.html">
+	<link rel="import" href="../signin-colored-icons.html">
+
+	<style is="custom-style" include="demo-pages-shared-styles">
+		.vertical-section-container {
+			max-width: 500px;
+		}
+		paper-button {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		.description > dl dt {
+	    font-weight: bold;
+	  }
+		.description > dl dd {
+	    margin: 0;
+	    padding: 0 0 0.5em 0;
+	  }
+	</style>
+</head>
+<body unresolved>
+	<div class="vertical-section-container centered">
+		<h3>Buttons can also be generated from the expanded list of providers</h3>
+		<div class="description">
+			<p>See the <a href="button-demo.html">signin-button demo</a> for more information.</p>
+		</div>
+		<demo-snippet class="centered-demo">
+			<template>
+				<div class="layout vertical">
+					<p>The available providers:</p>
+					<signin-button-more-providers provider="youtube"></signin-button-more-providers>
+					<signin-button-more-providers provider="google-plus"></signin-button-more-providers>
+
+					<p>Fallbacks when provider is omitted or undefined:</p>
+					<signin-button-more-providers></signin-button-more-providers>
+					<signin-button-more-providers provider="what"></signin-button-more-providers>
+				</div>
+			</template>
+		</demo-snippet>
+
+		<h3>The signin-button-more-providers simply wraps a signin-button</h3>
+		<div class="description">
+			<p>This means you can use one of the standard providers as well.</p>
+		</div>
+		<demo-snippet class="centered-demo">
+			<template>
+				<div class="layout vertical">
+					<signin-button-more-providers provider="google"></signin-button-more-providers>
+					<signin-button-more-providers provider="anonymous"></signin-button-more-providers>
+				</div>
+			</template>
+		</demo-snippet>
+
+		<h3>Like the normal buttons, they can be contained in a group to change properties in unison.</h3>
+		<demo-snippet class="centered-demo">
+			<template is="dom-bind">
+				<style>
+					.controls {
+						display: block;
+						@apply(--layout-vertical);
+						@apply(--layout-center);
+					}
+
+					.controls > * {
+						display: block;
+						padding: 0 20px;
+					}
+
+					.subtitle {
+						display: block;
+						font-size: 0.8em;
+						margin-top: 2px;
+						max-width: 150px;
+					}
+				</style>
+				<div class="layout vertical">
+					<div class="controls">
+						<paper-checkbox checked="{{dark}}">Dark Mode<span class="subtitle">Inverts colors for light backgrounds</span></paper-checkbox>
+						<paper-checkbox checked="{{short}}">Short Mode<span class="subtitle">Only shows the button name.</span></paper-checkbox>
+						<paper-checkbox checked="{{tile}}">Tile Mode<span class="subtitle">Only shows the button icon.</span></paper-checkbox>
+						<paper-checkbox checked="{{fixedWidth}}">Fixed Width<span class="subtitle">button-group width set to 300px.</span></paper-checkbox>
+						<paper-input id="prefixInput" value="{{prefix}}" label="prefix text"></paper-input>
+					</div>
+					<br />
+					<signin-button-group dark="[[dark]]" short="[[short]]" tiles="[[tile]]" fixed-width$="[[fixedWidth]]" prefix="[[prefix]]">
+						<signin-button-more-providers provider="anonymous"></signin-button-more-providers>
+						<signin-button-more-providers provider="google"></signin-button-more-providers>
+						<signin-button-more-providers provider="google-plus"></signin-button-more-providers>
+						<signin-button-more-providers provider="youtube"></signin-button-more-providers>
+					</signin-button-group>
+					<script>document.getElementById("prefixInput").value = 'Share Profile with ';</script>
+				</div>
+			</template>
+		</demo-snippet>
+	</div>
+</body>
+</html>

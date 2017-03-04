@@ -1,0 +1,91 @@
+<!--
+@license
+Copyright (c) 2017 Samuel Jones http://samthecodingman.github.io/MIT_LICENSE.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="signin-button.html">
+
+<!--
+`signin-button-group` is a container element for managing groups of `signin-button` elements
+
+@demo demo/group-demo.html
+-->
+<dom-module id="signin-button-group">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			:host([fixed-width]) {
+				width:300px;
+			}
+		</style>
+		<div id="btngroup">
+			<content></content>
+			<div>
+				[[childrenList]]
+			</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'signin-button-group',
+			properties: {
+        /**
+         * If true, all `signin-button` children will use the dark theme.
+         */
+				dark: { type: Boolean, value: false, observer: '_darkModeChanged' },
+        /**
+         * If true, all `signin-button` children will use the short display mode.
+         */
+				short: { type: Boolean, value: false, observer: '_shortModeChanged' },
+        /**
+         * If true, all `signin-button` children will use the tile display mode.
+         */
+				tiles: { type: Boolean, value: false, observer: '_tileModeChanged' },
+        /**
+         * Overrides all `signin-button` children's `prefix` attribute with the given value
+         */
+				prefix: { type: String, value: '', observer: '_prefixChanged' }
+			},
+			listeners: {
+				'loginTap': '_loginHeard'
+			},
+			attached: function() {
+				this._darkModeChanged(this.dark);
+				this._shortModeChanged(this.short);
+				this._tileModeChanged(this.tiles);
+				this._prefixChanged(this.prefix);
+			},
+			_loginHeard: function(e) {
+				this.fire('signinGroupTap', e.detail);
+			},
+			_darkModeChanged: function(darkMode) {
+				this._toggleChildAttributes('dark', darkMode);
+			},
+			_shortModeChanged: function(shortMode) {
+				this._toggleChildAttributes('short', shortMode);
+			},
+			_tileModeChanged: function(tileMode) {
+				this._toggleChildAttributes('tile', tileMode);
+			},
+			_prefixChanged: function(prefix) {
+				var btns = this._getChildButtons();
+				if (btns.length > 0) { btns.forEach(function(e){e.setAttribute('prefix', prefix, e);}); }
+			},
+			_toggleChildAttributes: function(attr, value) {
+				var btns = this._getChildButtons();
+				if (btns.length > 0) { btns.forEach(function(e){e.toggleAttribute(attr, value, e);}); }
+			},
+			_getChildButtons: function() {
+				if (!this.isAttached) { return []; }
+				var btns = [], stdBtns = this.queryAllEffectiveChildren("signin-button"),
+				mpBtns = this.queryAllEffectiveChildren("signin-button-more-providers");
+				if (stdBtns.length > 0) { Array.prototype.push.apply(btns, stdBtns); };
+				if (mpBtns.length > 0) { Array.prototype.push.apply(btns, mpBtns); }
+				return btns;
+			}
+		});
+	</script>
+</dom-module>

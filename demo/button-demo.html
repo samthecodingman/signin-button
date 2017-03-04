@@ -1,0 +1,328 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2017 Samuel Jones http://samthecodingman.github.io/MIT_LICENSE.txt
+-->
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+	<title>signin-button demo</title>
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+	<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+	<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+	<link rel="import" href="../../paper-input/paper-input.html">
+	<link rel="import" href="../../paper-styles/color.html">
+	<link rel="import" href="../signin-button.html">
+	<link rel="import" href="../signin-button-more-providers.html">
+	<link rel="import" href="../signin-colored-icons.html">
+	<link rel="import" href="demo-icons.html">
+
+	<style is="custom-style" include="demo-pages-shared-styles">
+		.vertical-section-container {
+			max-width: 500px;
+		}
+		paper-button {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		.description > dl dt {
+	    font-weight: bold;
+	  }
+
+		.description > dl > dt {
+	    @apply(--paper-font-code2);
+		  background-color: #eee;
+	  }
+		.description > dl > dd {
+	    margin: 0;
+	    padding: 0 0 0.5em 1em;
+	  }
+	</style>
+</head>
+<body unresolved>
+	<div class="vertical-section-container centered">
+		<h3>Buttons can be generated from an inbuilt list of providers</h3>
+		<div class="description">
+			<ul>
+				<li>Hovering over a signin-button will show the button's label.</li>
+				<li>An omitted or undefined provider will be shown as unknown.</li>
+				<li>These are the authentication methods used by Firebase.</li>
+				<li>More providers are available using signin-button-more-providers.</li>
+			</ul>
+		</div>
+		<demo-snippet class="centered-demo">
+			<template>
+				<div class="layout vertical">
+					<p>The available providers:</p>
+					<signin-button provider="anonymous"></signin-button>
+					<signin-button provider="email"></signin-button>
+					<signin-button provider="facebook"></signin-button>
+					<signin-button provider="github"></signin-button>
+					<signin-button provider="google"></signin-button>
+					<signin-button provider="twitter"></signin-button>
+					<signin-button provider="unknown"></signin-button>
+
+					<p>Fallbacks when provider is omitted or undefined:</p>
+					<signin-button></signin-button>
+					<signin-button provider="what"></signin-button>
+				</div>
+			</template>
+		</demo-snippet>
+
+
+		<h3>An expanded list of providers is also available</h3>
+		<div class="description">
+			<p>This is achieved using the signin-button-more-providers element, which wraps a signin-button and has more provider definitions.</p>
+		</div>
+		<demo-snippet class="centered-demo">
+			<template>
+				<div class="layout vertical">
+					<signin-button-more-providers provider="youtube"></signin-button-more-providers>
+					<signin-button-more-providers provider="google-plus"></signin-button-more-providers>
+				</div>
+			</template>
+		</demo-snippet>
+
+		<h3>Buttons also have a <em>dark</em> mode.</h3>
+		<demo-snippet class="centered-demo">
+			<template>
+				<div class="layout vertical">
+					<signin-button provider="google" dark></signin-button>
+					<signin-button provider="facebook" dark></signin-button>
+				</div>
+			</template>
+		</demo-snippet>
+
+		<h3>Buttons also have a <em>short</em> mode where only the button's <em>name</em> is shown.</h3>
+		<div class="description">
+			<p>This will also override the hover text.</p>
+		</div>
+		<demo-snippet class="centered-demo">
+			<template>
+				<div class="layout vertical">
+					<signin-button provider="google" short></signin-button>
+					<signin-button provider="facebook" short></signin-button>
+				</div>
+			</template>
+		</demo-snippet>
+
+		<h3>Buttons also have a <em>tile</em> mode where only the button's <em>icon</em> is shown.</h3>
+		<div class="description">
+			<p>If this is used in combination with the <em>short</em> mode, the hover text will be changed. (Hover over the buttons below)</p>
+		</div>
+		<demo-snippet class="centered-demo">
+			<template>
+				<style is="custom-style">
+					.tile-row signin-button {
+						display:inline-block;
+					}
+				</style>
+				<div class="tile-row layout horizontal">
+						<signin-button provider="google" tile></signin-button>
+						<signin-button provider="facebook" tile></signin-button>
+
+						<signin-button provider="google" tile short></signin-button>
+						<signin-button provider="facebook" tile short></signin-button>
+
+						<signin-button provider="google" tile dark></signin-button>
+						<signin-button provider="facebook" tile dark></signin-button>
+				</div>
+			</template>
+		</demo-snippet>
+
+		<h3>Buttons can be styled and text can be overridden using attributes</h3>
+		<div class="description">
+			<a id="attributes"></a>
+			<p>
+				<strong>Note:</strong> All values will use their default implementation if the attribute value is interpreted as
+				<a href="https://developer.mozilla.org/en-US/docs/Glossary/Falsy">falsy</a>.
+			</p>
+			<dl>
+				<dt>name</dt>
+				<dd>
+					<p>The case-accurate name of this provider.</p>
+					<dl>
+						<dt>Notes:</dt>
+						<dd><ul>
+								<li>shown on its own when <em>short</em> is true</li>
+								<li>concatenated with <em>prefix</em> when <em>short</em> is true</li>
+						</ul></dd>
+						<dt>Example:</dt>
+						<dd>&quot;Google&quot;, &quot;SoundCloud&quot;</dd>
+						<dt>Default:</dt>
+						<dd>calculated from <em>provider</em></dd>
+					</dl>
+				</dd>
+				<dt>prefix</dt>
+				<dd>
+					<p>The text shown before <em>name</em> in the label.</p>
+					<dl>
+						<dt>Notes:</dt>
+						<dd><ul>
+								<li>a trailing space is important for spacing if needed</li>
+								<li>hidden when attribute <em>short</em> is true</li>
+						</ul></dd>
+						<dt>Example:</dt>
+						<dd><span>&quot;Sign in: &quot;,</span> <span>&quot;Sign in to &quot;</span></dd>
+						<dt>Default:</dt>
+						<dd><span>&quot;Sign in with &quot;</span></dd>
+					</dl>
+				</dd>
+				<dt>label</dt>
+				<dd>
+					<p>Overrides the text shown in the label and the button's hover text.</p>
+					<dl>
+						<dt>Notes:</dt>
+						<dd><ul>
+								<li>hidden when attribute <em>short</em> is true</li>
+								<li>hidden when attribute <em>tile</em> is true</li>
+						</ul></dd>
+						<dt>Example:</dt>
+						<dd><span>&quot;Sign in&quot;,</span> <span>&quot;Signed in&quot;</span></dd>
+						<dt>Default:</dt>
+						<dd>concatenates <em>prefix</em> and <em>name</em></dd>
+					</dl>
+				</dd>
+				<dt>logo-color</dt>
+				<dd>
+					<p>Overrides the primary color used by this signin-button</p>
+					<dl>
+						<dt>Notes:</dt>
+						<dd><ul>
+								<li>value must be a hexadecimal color (either #xxx or #xxxxxx)</li>
+						</ul></dd>
+						<dt>Example:</dt>
+						<dd>#f44336, #4caf50, #2196f3</dd>
+						<dt>Default:</dt>
+						<dd>calculated from <em>provider</em></dd>
+					</dl>
+				</dd>
+				<dt>icon</dt>
+				<dd>
+					<p>Overrides the icon shown on the button.</p>
+					<dl>
+						<dt>Notes:</dt>
+						<dd><ul>
+								<li>value must be a hexadecimal color (either #xxx or #xxxxxx)</li>
+						</ul></dd>
+						<dt>Example:</dt>
+						<dd><span>&quot;signin:twitter&quot;,</span> <span>&quot;maps:local-activity&quot;</span> <span>&quot;maps:local-mall&quot;</span></dd>
+						<dt>Default:</dt>
+						<dd>calculated from <em>provider</em></dd>
+					</dl>
+				</dd>
+			</dl>
+		</div>
+		<demo-snippet class="centered-demo">
+			<template>
+				<div class="layout vertical">
+	        <signin-button provider="google" prefix="Inicia sesión con "></signin-button>
+					<signin-button provider="google" label="Sign in with the big G"></signin-button>
+	        <signin-button provider="google" name="Other Google"></signin-button>
+	        <signin-button provider="google" icon="signin-button-demo:google-nocolor"></signin-button>
+				</div>
+			</template>
+		</demo-snippet>
+
+		<h3>To add your own provider, you can do so either as an object or using attributes.</h3>
+		<div class="description">
+			<p>
+
+			</p>
+			<dl>
+				<dt>new-provider</dt>
+				<dd>
+					<p>Used to create a new provider but is passed in as an object with the appropriate <a href="#attributes">attribute values</a>.</p>
+					<dl>
+						<dt>Type:</dt>
+						<dd>Object</dd>
+						<dt>Structure:</dt>
+						<dd>
+							<dl>
+								<dt>provider</dt>
+								<dd>ID used by login events</dd>
+								<dt>name</dt>
+								<dd>name of this provider</dd>
+								<dt>icon</dt>
+								<dd>icon identifier for this button</dd>
+								<dt>prefix</dt>
+								<dd>Text shown before <em>name</em> in the label.</dd>
+								<dt>label</dt>
+								<dd>Text to use as the label</dd>
+							</dl>
+						</dd>
+						<dt>Example:</dt>
+						<dd>#f44336, #4caf50, #2196f3</dd>
+						<dt>Default:</dt>
+						<dd>calculated from <em>provider</em></dd>
+					</dl>
+				</dd>
+			</dl>
+		</div>
+		<demo-snippet class="centered-demo">
+			<template>
+				<div class="layout vertical">
+	        <signin-button
+							provider="linkedin"
+							logo-color="#0077B5"
+							name="LinkedIn"
+							icon="signin-button-demo:linkedin"
+							></signin-button>
+	        <signin-button
+							dark
+							provider="linkedin"
+							logo-color="#0077B5"
+							name="LinkedIn"
+							icon="signin-button-demo:linkedin"
+							></signin-button>
+
+	        <signin-button new-provider="[[providerObject]]"></signin-button>
+				</div>
+			</template>
+		</demo-snippet>
+
+
+		<h3>Buttons can have their styles overridden using mixins if desired.</h3>
+		<p>
+			<strong>Note: </strong>Avoid changing the internal visual style (apart
+			from colors) as the buttons already implement
+			<a href="https://developers.google.com/identity/sign-in/web/sign-in">Google's sign-in branding guidelines</a>.
+			This mixin API is only provided to align with other Polymer Custom Elements.
+		</p>
+		<demo-snippet class="centered-demo">
+			<template>
+				<style>
+					paper-button.custom {
+						--signin-button-shadow-color: #FF0000;
+						--signin-button-hover-shadow-color: #00FF00;
+						--signin-button: {
+							color: #0000FF;
+							background-color: #000066;
+							width: 200px;
+						};
+					}
+					paper-button.fixedwidth {
+						width: 200px;
+					}
+					paper-button.fixedwidthmixin {
+						--signin-button: {
+							width: 200px;
+						};
+					}
+				</style>
+				<signin-button provider="google" class="custom"></signin-button>
+				<signin-button provider="google" class="fixedwidth"></signin-button>
+				<signin-button provider="google" class="fixedwidthmixin"></signin-button>
+			</template>
+		</demo-snippet>
+	</div>
+</body>
+</html>

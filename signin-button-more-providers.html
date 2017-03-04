@@ -1,0 +1,165 @@
+<!--
+@license
+Copyright (c) 2017 Samuel Jones http://samthecodingman.github.io/MIT_LICENSE.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="signin-more-icons.html">
+<link rel="import" href="signin-button.html">
+
+<!--
+`signin-button-more-providers` is an extension to the `signin-button` element that adds less-common providers.
+
+### Usage Instructions
+
+The `signin-button-more-providers` element is used in the same way as the
+standard `signin-button` element. Simply replace `signin-button` with
+`signin-button-more-providers` as required.
+
+Internally within this element, a `signin-button` element is initialized with
+the required configuration. As such it is controlled in the same fashion as
+the standard element and has support for 'short', 'dark theme' and 'tile'
+(icon only) variants accessible through properties.
+
+Like the standard element, you can add custom providers by passing in one (or more) of the following:
+- attributes such as `provider`, `name`, `icon`, `prefix`, `label`
+- an object with the above attributes as properties
+- only the `provider` attribute to use one of the inbuilt providers
+
+When you use the `signin-button-more-providers` element it adds providers for:
+- `google-plus`: Google Plus
+- `youtube`: YouTube
+
+If the desired provider isn't found, it will be handed down to `signin-button`
+to figure out. If that can't figure it out, it will show the `unknown` provider.
+
+This element will import `signin-button/signin-more-icons.html` which contains the following icons:
+- `signin-more:google-plus`
+- `signin-more:youtube`
+- `signin-more:youtube-light`
+
+In the future, this element will be replaced by a system akin to how
+[iron-iconset](https://www.webcomponents.org/element/PolymerElements/iron-iconset) adds icons.
+
+### Examples
+
+Using an inbuilt provider:
+```
+<signin-button-more-providers provider="google-plus"></signin-button-more-providers>
+```
+
+Using one of the underlying `signin-button` providers:
+```
+<signin-button-more-providers provider="facebook"></signin-button-more-providers>
+is the same as
+<signin-button provider="facebook"></signin-button>
+```
+
+
+Configuring a custom provider:
+```
+<signin-button-more-providers provider="linkedin" logo-color="#0077B5" name="LinkedIn" icon="my-icons:linkedin"></signin-button-more-providers>
+```
+
+Unlike `signin-button`, this element does not have provider object support using the `newProvider` property.
+
+@demo demo/more-demo.html
+-->
+<dom-module id="signin-button-more-providers">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <signin-button id="nested" new-provider="[[_newProvider]]" provider="[[_provider]]" icon="[[icon]]" name="[[name]]" prefix="[[prefix]]" label="[[label]]" short="[[short]]" dark="[[dark]]" tile="[[tile]]"></signin-button>
+  </template>
+  <script>
+    Polymer({
+      is: 'signin-button-more-providers',
+      properties: {
+				/**
+				 * Sets ID of the button's provider.
+				 */
+				provider: { type: String, value: '' },
+  			/**
+				 * The nested button's provider ID.
+				 */
+				_provider: { type: String, value: '' },
+				/**
+				 * The nested button's provider object.
+         *
+         * @type {{provider: String, name: String, icon: String, color: String, prefix: String, label: String}}
+				 */
+				_newProvider: { type: Object, value: function() {return{};} },
+        /**
+         * Overrides icon of this button.
+         */
+				icon: { type: String, value: '' },
+        /**
+         * Overrides name of this button's provider.
+         */
+				name: { type: String, value: '' },
+        /**
+         * Overrides the text shown before the name in the label.
+         */
+				prefix: { type: String, value: '' },
+        /**
+         * Overrides the label text.
+         */
+				label: { type: String, value: '' },
+        /**
+         * If true, only shows the name as the label.
+         */
+				short: { type: Boolean, value: false, reflectToAttribute: true, observer: '_shortModeChanged' },
+        /**
+         * If true, use dark theme.
+         */
+				dark: {	type: Boolean, value: false, reflectToAttribute: true, observer: '_darkModeChanged'	},
+        /**
+         * If true, only show icon.
+         */
+				tile: {	type: Boolean, value: false, reflectToAttribute: true, observer: '_tileModeChanged'	},
+        /**
+         * An object containing provider definitions
+         */
+        _providers: {
+ 					type: Object,
+          readOnly: true,
+          value: function() {
+ 						function ibDef (name, icon, color, prefix, label) {
+ 							this.name = name;
+ 							this.icon = icon;
+ 							this.color = color ? color : '#757575';
+ 							this.prefix = (typeof prefix === 'undefined') ? null : prefix;
+ 							this.label = (typeof label === 'undefined') ? null : label;
+ 						}
+ 						return {
+ 							'google-plus': new ibDef('Google+', 'signin-more:google-plus', '#d34836'),
+ 							'youtube': new ibDef('YouTube', 'signin-more:youtube', '#cd201f')
+ 						};
+ 					}
+        }
+      },
+			observers: [
+				'_providerChanged(provider, _providers)'
+			],
+			_providerChanged: function(name, inbuilts) {
+        var providerObj = this._getProp(inbuilts, name);
+        this._newProvider = providerObj || {};
+        this._provider = name;
+			},
+			_getProp: function(obj, prop) {
+				return (obj && obj.hasOwnProperty(prop)) ? obj[prop] : null;
+			},
+      _shortModeChanged: function(shortMode) {
+        this.$.nested.toggleAttribute('short', shortMode);
+      },
+      _darkModeChanged: function(darkMode) {
+        this.$.nested.toggleAttribute('dark', darkMode);
+      },
+      _tileModeChanged: function(tileMode) {
+        this.$.nested.toggleAttribute('tile', tileMode);
+      }
+    });
+  </script>
+</dom-module>

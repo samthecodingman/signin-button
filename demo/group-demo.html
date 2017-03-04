@@ -1,0 +1,96 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2017 Samuel Jones http://samthecodingman.github.io/MIT_LICENSE.txt
+-->
+
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+	<title>signin-button-group demo</title>
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+	<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+	<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+	<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+	<link rel="import" href="../../paper-input/paper-input.html">
+	<link rel="import" href="../../paper-styles/color.html">
+	<link rel="import" href="../signin-button.html">
+	<link rel="import" href="../signin-button-group.html">
+	<link rel="import" href="../signin-colored-icons.html">
+	<link rel="import" href="demo-icons.html">
+
+	<style is="custom-style" include="demo-pages-shared-styles">
+		.vertical-section-container {
+			max-width: 500px;
+		}
+		paper-button {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body unresolved>
+	<div class="vertical-section-container centered">
+		<h3>Buttons can be added to groups for easy management</h3>
+		<demo-snippet class="centered-demo">
+			<template>
+        <signin-button-group>
+    			<signin-button provider="google"></signin-button>
+    			<signin-button provider="facebook"></signin-button>
+    			<signin-button provider="twitter"></signin-button>
+    		</signin-button-group>
+			</template>
+		</demo-snippet>
+
+		<h3>Properties of buttons contained in a group can be updated in unison.</h3>
+		<demo-snippet class="centered-demo">
+			<template is="dom-bind">
+				<style>
+					.controls {
+						@apply(--layout-vertical);
+						@apply(--layout-center);
+					}
+
+					.controls > * {
+						display: block;
+						padding: 0 20px;
+					}
+
+					.subtitle {
+						display: block;
+						font-size: 0.8em;
+						margin-top: 2px;
+						max-width: 150px;
+					}
+				</style>
+				<div class="layout vertical">
+					<div class="controls">
+						<paper-checkbox checked="{{dark}}">Dark Mode<span class="subtitle">Inverts colors for light backgrounds</span></paper-checkbox>
+						<paper-checkbox checked="{{short}}">Short Mode<span class="subtitle">Only shows the button title.</span></paper-checkbox>
+						<paper-checkbox checked="{{tile}}">Tile Mode<span class="subtitle">Only shows the button icon.</span></paper-checkbox>
+						<paper-checkbox checked="{{fixedWidth}}">Fixed Width<span class="subtitle">button-group width set to 300px.</span></paper-checkbox>
+						<paper-input id="prefixInput" value="{{prefix}}" label="prefix text"></paper-input>
+					</div>
+					<br />
+					<signin-button-group dark="[[dark]]" short="[[short]]" tiles="[[tile]]" fixed-width$="[[fixedWidth]]" prefix="[[prefix]]">
+						<signin-button provider="anonymous"></signin-button>
+						<signin-button provider="email"></signin-button>
+						<signin-button provider="facebook"></signin-button>
+						<signin-button provider="github"></signin-button>
+						<signin-button provider="google"></signin-button>
+						<signin-button provider="twitter"></signin-button>
+					</signin-button-group>
+					<script>document.getElementById("prefixInput").value = 'Share Profile with ';</script>
+				</div>
+			</template>
+		</demo-snippet>
+	</div>
+</body>
+</html>
