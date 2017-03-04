@@ -1,0 +1,103 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2017 Samuel Jones http://samthecodingman.github.io/MIT_LICENSE.txt
+
+Scaffold sourced from PolymerElements/iron-icon/demo/index.html with thanks.
+Copyright (c) 2015 The Polymer Project Authors. http://polymer.github.io/LICENSE.txt
+-->
+<html>
+<head>
+	<title>signin-button inbuilt iconsets</title>
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../../paper-styles/demo-pages.html">
+	<link rel="import" href="../../paper-styles/color.html">
+	<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+
+	<!-- load default iconset -->
+	<link rel="import" href="../signin-icons.html">
+	<link rel="import" href="../signin-colored-icons.html">
+
+	<style is="custom-style">
+		h2 {
+			text-transform: capitalize;
+		}
+
+		iron-icon {
+			transition: all 0.2s;
+			-webkit-transition: all 0.2s;
+		}
+
+		iron-icon:hover {
+			fill: var(--google-yellow-700);
+		}
+
+		.set {
+			margin: auto;
+			padding: 1em 0;
+			border-bottom: 1px solid silver;
+			@apply(--layout-horizontal);
+			@apply(--layout-wrap);
+		}
+
+		.set:last-of-type {
+			border-bottom: none;
+		}
+
+		.set:nth-of-type(4n-3) {
+			color: var(--paper-grey-700);
+		}
+
+		.set:nth-of-type(4n-2) {
+			color: var(--paper-pink-500);
+		}
+
+		.set:nth-of-type(4n-1) {
+			color: var(--google-green-500);
+		}
+
+		.set:nth-of-type(4n) {
+			color: var( --google-blue-500);
+		}
+
+		.container {
+			min-width: 10em;
+			padding: 1em 0.5em;
+			text-align: center;
+			@apply(--layout-vertical);
+			@apply(--layout-center);
+			@apply(--layout-flex);
+		}
+
+		.container > div {
+			margin-top: 0.5em;
+			color: black;
+			font-size: 10px;
+		}
+	</style>
+</head>
+<body>
+	<template is="dom-bind">
+	 <iron-meta type="iconset" list="{{iconsets}}"></iron-meta>
+
+		<template is="dom-repeat" items="{{iconsets}}">
+			<h2>{{item.name}}</h2>
+
+			<div class="set">
+				<template is="dom-repeat" items="{{getIconNames(item)}}">
+					<span class="container">
+						<iron-icon icon="{{item}}"></iron-icon>
+						<div>{{item}}</div>
+					</span>
+				</template>
+			</div>
+		</template>
+	</template>
+
+	<script>
+		document.querySelector('[is=dom-bind]').getIconNames = function(iconset) {
+			return iconset.getIconNames();
+		};
+	</script>
+</body>
+</html>
