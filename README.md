@@ -68,11 +68,11 @@ This is a brief list of tasks that are yet to be completed. Feel free to open an
 
 Demo and API docs: [webcomponents.org][link-webc], [GitHub Pages][link-docs]
 
-[link-docs]: https://samthecodingman.github.io/attr-item-behavior/
-[link-license]: https://github.com/samthecodingman/attr-item-behavior/blob/master/LICENSE
-[link-repo]: https://www.github.com/samthecodingman/attr-item-behavior
-[link-todo]: https://www.github.com/samthecodingman/attr-item-behavior#to-do-list
-[link-webc]: https://www.webcomponents.org/element/samthecodingman/attr-item-behavior
+[link-docs]: https://samthecodingman.github.io/signin-button/
+[link-license]: https://github.com/samthecodingman/signin-button/blob/master/LICENSE
+[link-repo]: https://www.github.com/samthecodingman/signin-button
+[link-todo]: https://www.github.com/samthecodingman/signin-button#to-do-list
+[link-webc]: https://www.webcomponents.org/element/samthecodingman/signin-button
 [shield-deps]: https://img.shields.io/badge/dependencies-polymer-green.svg "Dependencies: polymer"
 [shield-license]: https://img.shields.io/badge/license-MIT-blue.svg "License: MIT"
 [shield-polymer]: https://img.shields.io/badge/polymer%20version-1.0-yellow.svg "Polymer Version: 1.0"
