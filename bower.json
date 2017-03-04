@@ -1,6 +1,6 @@
 {
   "name": "signin-button",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A generic sign-in button element implementing the Google Sign-In button guidelines",
   "authors": [
     "Samuel Jones (@samthecodingman)"
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git://github.com/samthecodingman/signin-button"
   },
-  "main": "signin-button.html",
+  "main": "signin-button-elements.html",
   "license": "https://github.com/samthecodingman/signin-button/blob/master/LICENSE",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
